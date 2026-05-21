@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Extractor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="page-header">
+      <h1>Document Extractor Web App</h1>
+      <p class="hint">
+        1st click start, 2nd click end, then copy. OCR text from uploaded images is merged
+        directly into selection flow.
+      </p>
+    </header>
+
+    <section class="panel controls">
+      <h2>Document Input</h2>
+      <label for="textInput">Add / Replace text content</label>
+      <textarea
+        id="textInput"
+        rows="5"
+        placeholder="Paste your document text here..."
+      ></textarea>
+
+      <div class="control-row">
+        <input
+          id="documentFileInput"
+          type="file"
+          accept=".txt,.md,.csv,.json,.pdf,.docx,image/*,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        />
+        <button id="openDocumentBtn" type="button">Open Document File</button>
+      </div>
+
+      <div class="control-row">
+        <button id="replaceTextBtn" type="button">Replace Document Text</button>
+        <button id="appendTextBtn" type="button">Append Text</button>
+      </div>
+
+      <label for="imageInput">Upload image(s) for OCR</label>
+      <input id="imageInput" type="file" accept="image/*" multiple />
+
+      <div class="control-row">
+        <button id="runOcrBtn" type="button">Run OCR on Images</button>
+        <button id="resetSelectionBtn" type="button">Reset Selection</button>
+        <button id="clearDocBtn" type="button">Clear Document</button>
+      </div>
+    </section>
+
+    <section class="panel toolbar">
+      <button id="copySelectionBtn" type="button">Copy Selected Text</button>
+      <label class="inline-control" for="a4PreviewToggle">
+        <input id="a4PreviewToggle" type="checkbox" />
+        A4 Preview
+      </label>
+      <label class="inline-control" for="zoomRange">
+        Zoom
+        <input id="zoomRange" type="range" min="70" max="130" value="100" />
+      </label>
+      <span id="pageNumber">Page 1 / 1</span>
+      <span id="status">Status: Waiting for first click</span>
+      <span id="backendStatus">Backend OCR: Checking...</span>
+    </section>
+
+    <section class="panel">
+      <h2>Document Viewer</h2>
+      <article id="documentRoot" class="document">
+        <p>
+          This is a ready-to-use extractor app. You can replace text, upload images, run OCR,
+          then select between two clicks.
+        </p>
+        <p>
+          Try this: click once in this paragraph, click again in a lower paragraph, then copy.
+        </p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Selection Output</h2>
+      <pre id="selectedTextPreview" class="preview">No selection yet.</pre>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
